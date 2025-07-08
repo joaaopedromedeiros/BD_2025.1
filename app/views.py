@@ -36,9 +36,7 @@ def exercicio_1(request):
 
         # define o comando SQL que será executado
         sql = '''
-            SELECT  dep.nome as 'departamento',
-                    fun.nome, 
-                    fun.telefones
+            SELECT  dep.nome as 'departamento',fun.nome, fun.telefones
 
             FROM Funcionario fun
             INNER JOIN Departamento dep ON dep.id = fun.departamento_id
@@ -70,9 +68,7 @@ def exercicio_2(request):
 
         # define o comando SQL que será executado
         sql = '''
-            SELECT  dep.nome as 'departamento',
-                    fun.nome, 
-                    fun.telefones
+            SELECT  dep.nome as 'departamento', fun.nome, fun.telefones
 
             FROM Funcionario fun
             INNER JOIN Departamento dep ON dep.id = fun.departamento_id
@@ -105,9 +101,7 @@ def exercicio_3(request):
 
         # define o comando SQL que será executado
         sql = '''
-            SELECT  dep.nome as 'departamento',
-                    fun.nome, 
-                    fun.telefones
+            SELECT  dep.nome as 'departamento', fun.nome, fun.telefones
 
             FROM Funcionario fun
             INNER JOIN Departamento dep ON dep.id = fun.departamento_id
@@ -140,9 +134,7 @@ def exercicio_4(request):
 
         # define o comando SQL que será executado
         sql = '''
-            SELECT  dep.nome as 'departamento',
-                    fun.nome, 
-                    fun.telefones
+            SELECT  dep.nome as 'departamento', fun.nome,fun.telefones
 
             FROM Funcionario fun
             INNER JOIN Departamento dep ON dep.id = fun.departamento_id
