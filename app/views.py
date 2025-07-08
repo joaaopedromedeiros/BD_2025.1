@@ -134,14 +134,18 @@ def exercicio_4(request):
 
         # define o comando SQL que será executado
         sql = '''
-            SELECT  dep.nome as 'departamento', fun.nome,fun.telefones
+            SELECT 
+                fab.descricao AS Fabricante, mod.descricao AS Modelo, c.ano_fabricacao AS AnoFabricacao, c.cor AS Cor, c.placa AS Placa, c.preco AS Preco,cat.descricao AS Categoria
+            FROM Carro c
 
-            FROM Funcionario fun
-            INNER JOIN Departamento dep ON dep.id = fun.departamento_id
-
-            ORDER BY dep.nome, fun.nome
+            JOIN Fabricante fab ON fab.id = c.fabricante_id
+            JOIN Modelo mod ON mod.id = c.modelo_id 
+            JOIN Categoria cat ON cat.id = c.categoria_id
+            ORDER BY fab.descricao, mod.descricao, c.ano_fabricacao;
         '''
-        
+
+        # Aqui em Join eu crio o apelido do Modelo --> mod para usar de forma simplificada em qualquer outra parte da consulta sql
+
         # usa o cursor para executar o SQL
         cursor.execute(sql)
         # obtem todos os registros retornados
