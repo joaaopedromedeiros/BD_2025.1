@@ -7,7 +7,7 @@ def obter_conexao():
     # define os parametros de conexao
     driver   = '{ODBC Driver 17 for SQL Server}'
     servidor = '.\SQLEXPRESS'
-    banco    = 'Aulas_BD'
+    banco    = 'Aulas_DB'
     usuario  = 'sa'
     senha    = 'Senha@123' # poder ser também: "senha", "senha@123", "Senha@123"
 
@@ -68,12 +68,12 @@ def exercicio_2(request):
 
         # define o comando SQL que será executado
         sql = '''
-            SELECT  dep.nome as 'departamento', fun.nome, fun.telefones
+            SELECT  turma.nome, Aluno.nome, Aluno.idade
 
-            FROM Funcionario fun
-            INNER JOIN Departamento dep ON dep.id = fun.departamento_id
+            FROM Aluno
+            INNER JOIN Turma on Turma.id = aluno.turma_id
 
-            ORDER BY dep.nome, fun.nome
+            ORDER BY Turma.nome, Aluno.nome, Aluno.idade
         '''
         
         # usa o cursor para executar o SQL
@@ -101,13 +101,17 @@ def exercicio_3(request):
 
         # define o comando SQL que será executado
         sql = '''
-            SELECT  dep.nome as 'departamento', fun.nome, fun.telefones
+            SELECT  bairro.nome, cidade.nome, estado.nome
 
-            FROM Funcionario fun
-            INNER JOIN Departamento dep ON dep.id = fun.departamento_id
+            FROM Bairro
+            INNER JOIN Cidade on cidade.id = bairro.cidade_id
+            INNER JOIN Estado on estado.sigla = cidade.estado_id
 
-            ORDER BY dep.nome, fun.nome
+            ORDER BY Estado.nome, Cidade.nome, Bairro.nome
         '''
+
+        #Juntar bairro com cidade
+        # e depois juntar cidade com estado 
         
         # usa o cursor para executar o SQL
         cursor.execute(sql)
@@ -134,12 +138,18 @@ def exercicio_4(request):
 
         # define o comando SQL que será executado
         sql = '''
-            SELECT 
-                fab.descricao AS Fabricante, mod.descricao AS Modelo, c.ano_fabricacao AS AnoFabricacao, c.cor AS Cor, c.placa AS Placa, c.preco AS Preco,cat.descricao AS Categoria
-            FROM Carro c
+           SELECT 
+                fab.descricao AS Fabricante,
+                mod.descricao AS Modelo,
+                c.ano_fabricacao AS AnoFabricacao,
+                c.cor AS Cor,
+                c.placa AS Placa,
+                c.preco AS Preco,
+                cat.descricao AS Categoria
 
-            JOIN Fabricante fab ON fab.id = c.fabricante_id
-            JOIN Modelo mod ON mod.id = c.modelo_id 
+            FROM Carro c
+            JOIN Modelo mod ON mod.id = c.modelo_id
+            JOIN Fabricante fab ON fab.id = mod.fabricante_id
             JOIN Categoria cat ON cat.id = c.categoria_id
             ORDER BY fab.descricao, mod.descricao, c.ano_fabricacao;
         '''
